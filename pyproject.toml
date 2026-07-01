@@ -1,0 +1,8 @@
+[build-system]
+requires = [
+	"wheel",
+	"packaging",
+	"certifi"
+]
+backend-path = ["build_backend"]
+build-backend = "local_backend"
