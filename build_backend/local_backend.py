@@ -1,4 +1,3 @@
-
 # Copyright (C) 2026 Mohamed Gaber <me@donn.website>
 #
 # Adapted from Yosys
@@ -162,7 +161,10 @@ def build_wheel(wheel_dir, config_settings=None, metadata_directory=None):
             urllib.request.urlretrieve(WINETRICKS_URL, d / "winetricks")
             wheel.write(d / "winetricks", f"{PROJECT_NAME}/winetricks")
             with open(d / "winetricks", "rb") as f:
-                got = hashlib.file_digest(f, "sha256").hexdigest()
+                buffer = f.read()
+                sha256 = hashlib.sha256()
+                sha256.update(buffer)
+                got = sha256.hexdigest()
                 assert (
                     WINETRICKS_SHA256 == got
                 ), f"upstream hash for winetricks changed: {got}"
@@ -179,7 +181,10 @@ def build_wheel(wheel_dir, config_settings=None, metadata_directory=None):
             with tarfile.open(d / "cabextract-src.tar.gz", mode="r:gz") as tf:
                 tf.extractall(d / "cabextract", filter=strip_first_component)
             with open(d / "cabextract-src.tar.gz", "rb") as f:
-                got = hashlib.file_digest(f, "sha256").hexdigest()
+                buffer = f.read()
+                sha256 = hashlib.sha256()
+                sha256.update(buffer)
+                got = sha256.hexdigest()
                 assert (
                     CABEXTRACT_SHA256 == got
                 ), f"upstream hash for cabextract source changed: {got}"
