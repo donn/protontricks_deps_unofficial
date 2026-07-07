@@ -19,22 +19,7 @@ This just lets me install them via PIP.
 
 # Usage
 
-In your terminal…
-
-## First time
-
-```bash
-python3 -m venv venv
-source ./venv/bin/activate
-pip3 install protontricks protontricks_deps_unofficial
-```
-
-## Subsequent Uses
-
-```bash
-source ./venv/bin/activate
-protontricks […]
-```
+TBD, pulled the package from PyPI because it felt like I was abusing PyPI.
 
 # Legal Info
 
