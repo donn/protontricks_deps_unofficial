@@ -44,18 +44,11 @@ winetricks = {PROJECT_NAME}.wrapper:winetricks
 cabextract = {PROJECT_NAME}.wrapper:cabextract
 """
 
-if sys.implementation.name == "cpython":
-    PYTHON_TAG = f"cp{sysconfig.get_config_var('py_version_nodot')}"
-    # freethreaded builds have an ABI flag appended, "t"
-    ABI_TAG = f"cp{sysconfig.get_config_var('py_version_nodot')}{sysconfig.get_config_var('abiflags')}"
-else:
-    raise NotImplementedError("unsupported Python implementation")
-
 PLATFORM_TAG_RAW = sysconfig.get_platform()
 PLATFORM_TAG = (
     PLATFORM_TAG_RAW.lower().replace("-", "_").replace(".", "_").replace(" ", "_")
 )
-COMPAT_TAG = f"{PYTHON_TAG}-{ABI_TAG}-{PLATFORM_TAG}"
+COMPAT_TAG = f"py3-none-{PLATFORM_TAG}"
 
 
 def make_message(headers, payload=None):
