@@ -50,6 +50,10 @@ jobs:
     name: Release Wheels
     runs-on: ubuntu-latest
     needs: build_wheels
+    permissions:
+      contents: write # tags?
+      id-token: write
+      packages: write # releases?
     steps:
       - uses: actions/checkout@v6
         with:
