@@ -48,14 +48,9 @@ jobs:
         with:
           name: python-wheels-${{ matrix.os.runner }}
           path: ./wheelhouse/*.whl
-  upload_wheels:
-    name: Upload Wheels
+  release_wheels:
+    name: Release Wheels
     runs-on: ubuntu-latest
-    # Specifying a GitHub environment is optional, but strongly encouraged
-    environment: pypi
-    permissions:
-      # IMPORTANT: this permission is mandatory for Trusted Publishing
-      id-token: write
     needs: build_wheels
     steps:
       - uses: actions/download-artifact@v8
@@ -63,9 +58,12 @@ jobs:
           path: "."
           pattern: python-wheels-*
           merge-multiple: true
-      - run: |
-          ls
-          mkdir -p ./dist
-          mv *.whl ./dist
-      - name: Publish
-        uses: pypa/gh-action-pypi-publish@release/v1
+      # *.whl
+      - id: get-version
+        run: |
+          echo "version=$(perl -ne 'print $1 if /PROJECT_VERSION = "([\d\.]+)"/' build_backend/local_backend.py)" >> $GITHUB_OUTPUT
+      - id: release-create
+        run: |
+          if ! gh release view ${{ steps.get-version.outputs.version }} ; then
+            gh release create ${{ steps.get-version.outputs.version }} --notes-from-tag ./*.whl
+          fi
