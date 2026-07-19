@@ -66,7 +66,7 @@ jobs:
       - id: release-create
         run: |
           if ! gh release view ${{ steps.get-version.outputs.version }} ; then
-            gh release create ${{ steps.get-version.outputs.version }} --notes-from-tag ./*.whl
+            gh release create ${{ steps.get-version.outputs.version }} --generate-notes ./*.whl
           fi
         env:
           GH_TOKEN: ${{ github.token }}
