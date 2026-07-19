@@ -19,7 +19,21 @@ This just lets me install them via PIP.
 
 # Usage
 
-TBD, pulled the package from PyPI because it felt like I was abusing PyPI.
+## First time
+
+```bash
+python3 -m venv venv
+source ./venv/bin/activate
+VERSION=2026.01.25
+pip3 install --upgrade protontricks https://github.com/donn/protontricks_deps_unofficial/releases/download/$VERSION/protontricks_deps_unofficial-$VERSION-py3-none-manylinux2014_$(uname -m).manylinux_2_17_$(uname -m).whl
+```
+
+## Subsequent Uses
+
+```bash
+source ./venv/bin/activate
+protontricks […]
+```
 
 # Legal Info
 
